@@ -130,4 +130,6 @@
 #define DISABLE_PARALLEL_CACHE               DISPLAY_PROP("disable_parallel_cache")
 #define ENABLE_FORCE_SPLIT                   DISPLAY_PROP("enable_force_split")
 
+#define SKIP_EXTENSION_INTF                  DISPLAY_PROP("skip_extension_intf")
+
 #endif  // __DISPLAY_PROPERTIES_H__
