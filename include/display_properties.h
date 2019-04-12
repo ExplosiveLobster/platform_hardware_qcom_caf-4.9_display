@@ -110,4 +110,6 @@
 #define DISABLE_IDLE_TIME_VIDEO              DISPLAY_PROP("disable_idle_time_video")
 #define DISABLE_IDLE_TIME_HDR                DISPLAY_PROP("disable_idle_time_hdr")
 
+#define SKIP_EXTENSION_INTF                  DISPLAY_PROP("skip_extension_intf")
+
 #endif  // __DISPLAY_PROPERTIES_H__
