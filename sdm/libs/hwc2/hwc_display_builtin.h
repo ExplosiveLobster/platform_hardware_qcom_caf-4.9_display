@@ -111,7 +111,6 @@ class HWCDisplayBuiltIn : public HWCDisplay {
   BufferInfo output_buffer_info_ = {};
   void *output_buffer_base_ = nullptr;
   int default_mode_status_ = 0;
-  bool is_primary_ = false;
   bool pending_refresh_ = true;
   bool enable_drop_refresh_ = false;
 };

@@ -349,7 +349,6 @@ class HWCDisplay : public DisplayEventHandler {
   uint32_t display_config_ = 0;
   bool config_pending_ = false;
   bool pending_commit_ = false;
-  LayerRect window_rect_ = {};
   bool skip_commit_ = false;
 
  private:

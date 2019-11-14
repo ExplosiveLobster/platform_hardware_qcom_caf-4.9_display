@@ -93,8 +93,7 @@ HWCDisplayBuiltIn::HWCDisplayBuiltIn(CoreInterface *core_intf, BufferAllocator *
     : HWCDisplay(core_intf, buffer_allocator, callbacks, qservice, kBuiltIn, id, sdm_id, true,
                  DISPLAY_CLASS_BUILTIN),
       buffer_allocator_(buffer_allocator),
-      cpu_hint_(NULL),
-      is_primary_(is_primary) {
+      cpu_hint_(NULL) {
 }
 
 int HWCDisplayBuiltIn::Init() {
@@ -118,13 +117,6 @@ int HWCDisplayBuiltIn::Init() {
   color_mode_ = new HWCColorMode(display_intf_);
   color_mode_->Init();
   HWCDebugHandler::Get()->GetProperty(ENABLE_DEFAULT_COLOR_MODE, &default_mode_status_);
-
-  if (is_primary_) {
-    Debug::GetWindowRect(&window_rect_.left, &window_rect_.top,
-                         &window_rect_.right, &window_rect_.bottom);
-    DLOGI("Window rect :[%f %f %f %f]", window_rect_.left, window_rect_.top,
-           window_rect_.right, window_rect_.bottom);
-  }
 
   int drop_refresh = 0;
   HWCDebugHandler::Get()->GetProperty(ENABLE_DROP_REFRESH, &drop_refresh);

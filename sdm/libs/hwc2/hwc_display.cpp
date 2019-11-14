@@ -876,13 +876,6 @@ HWC2::Error HWCDisplay::GetDisplayAttribute(hwc2_config_t config, HWC2::Attribut
     }
   }
 
-  variable_config.x_pixels -= UINT32(window_rect_.right + window_rect_.left);
-  variable_config.y_pixels -= UINT32(window_rect_.bottom + window_rect_.top);
-  if (variable_config.x_pixels <= 0 || variable_config.y_pixels <= 0) {
-    DLOGE("window rects are not within the supported range");
-    return HWC2::Error::BadDisplay;
-  }
-
   switch (attribute) {
     case HWC2::Attribute::VsyncPeriod:
       *out_value = INT32(variable_config.vsync_period_ns);
@@ -1755,16 +1748,6 @@ int HWCDisplay::SetFrameBufferResolution(uint32_t x_pixels, uint32_t y_pixels) {
   error = display_intf_->SetFrameBufferConfig(fb_config);
   if (error != kErrorNone) {
     DLOGV("Set frame buffer config failed. Error = %d", error);
-    return -EINVAL;
-  }
-
-  // Reduce the src_rect and dst_rect as per FBT config.
-  // SF sending reduced FBT but here the src_rect is equal to mixer which is
-  // higher than allocated buffer of FBT.
-  x_pixels -= UINT32(window_rect_.right + window_rect_.left);
-  y_pixels -= UINT32(window_rect_.bottom + window_rect_.top);
-  if (x_pixels <= 0 || y_pixels <= 0) {
-    DLOGE("window rects are not within the supported range");
     return -EINVAL;
   }
 
