@@ -148,7 +148,7 @@ DisplayError DisplayVirtual::SetActiveConfig(DisplayConfigVariableInfo *variable
 
   error = comp_manager_->RegisterDisplay(display_id_, display_type_, display_attributes,
                                          hw_panel_info, mixer_attributes, fb_config,
-                                         &display_comp_ctx_, &(default_qos_data_.clock_hz));
+                                         &display_comp_ctx_);
   if (error != kErrorNone) {
     return error;
   }
@@ -200,7 +200,7 @@ DisplayError DisplayVirtual::SetDisplayState(DisplayState state, int *release_fe
     break;
 
   case kStateOn:
-    error = hw_intf_->PowerOn(default_qos_data_, release_fence);
+    error = hw_intf_->PowerOn(release_fence);
     active = true;
     break;
 

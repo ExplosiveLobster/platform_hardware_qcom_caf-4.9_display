@@ -111,7 +111,7 @@ DisplayError DisplayBase::Init() {
 
   error = comp_manager_->RegisterDisplay(display_id_, display_type_, display_attributes_,
                                          hw_panel_info_, mixer_attributes_, fb_config_,
-                                         &display_comp_ctx_, &(default_qos_data_.clock_hz));
+                                         &display_comp_ctx_);
   if (error != kErrorNone) {
     goto CleanupOnError;
   }
@@ -486,14 +486,13 @@ DisplayError DisplayBase::SetDisplayState(DisplayState state, int *release_fence
     break;
 
   case kStateOn:
-    error = hw_intf_->PowerOn(default_qos_data_, release_fence);
+    error = hw_intf_->PowerOn(release_fence);
     if (error != kErrorNone) {
       return error;
     }
 
     error = comp_manager_->ReconfigureDisplay(display_comp_ctx_, display_attributes_,
-                                              hw_panel_info_, mixer_attributes_, fb_config_,
-                                              &(default_qos_data_.clock_hz));
+                                              hw_panel_info_, mixer_attributes_, fb_config_);
     if (error != kErrorNone) {
       return error;
     }
@@ -503,13 +502,13 @@ DisplayError DisplayBase::SetDisplayState(DisplayState state, int *release_fence
     break;
 
   case kStateDoze:
-    error = hw_intf_->Doze(default_qos_data_, release_fence);
+    error = hw_intf_->Doze(release_fence);
     active = true;
     last_power_mode_ = kStateDoze;
     break;
 
   case kStateDozeSuspend:
-    error = hw_intf_->DozeSuspend(default_qos_data_, release_fence);
+    error = hw_intf_->DozeSuspend(release_fence);
     if (display_type_ != kPrimary) {
       active = true;
     }
@@ -1131,8 +1130,7 @@ DisplayError DisplayBase::ReconfigureDisplay() {
   }
 
   error = comp_manager_->ReconfigureDisplay(display_comp_ctx_, display_attributes, hw_panel_info,
-                                            mixer_attributes, fb_config_,
-                                            &(default_qos_data_.clock_hz));
+                                            mixer_attributes, fb_config_);
   if (error != kErrorNone) {
     return error;
   }
@@ -1321,8 +1319,7 @@ DisplayError DisplayBase::SetFrameBufferConfig(const DisplayConfigVariableInfo &
   }
 
   error =  comp_manager_->ReconfigureDisplay(display_comp_ctx_, display_attributes_, hw_panel_info_,
-                                             mixer_attributes_, variable_info,
-                                             &(default_qos_data_.clock_hz));
+                                             mixer_attributes_, variable_info);
   if (error != kErrorNone) {
     return error;
   }
