@@ -103,8 +103,6 @@ class HWDeviceDRM : public HWInterface {
   virtual void InitializeConfigs();
   virtual DisplayError DumpDebugData() { return kErrorNone; }
   virtual void PopulateHWPanelInfo();
-  virtual DisplayError SetDynamicDSIClock(uint64_t bit_clk_rate);
-  virtual DisplayError GetDynamicDSIClock(uint64_t *bit_clk_rate);
 
   enum {
     kHWEventVSync,
@@ -187,8 +185,6 @@ class HWDeviceDRM : public HWInterface {
   uint32_t current_mode_index_ = 0;
   sde_drm::DRMConnectorInfo connector_info_ = {};
   bool first_cycle_ = true;
-  uint32_t vrefresh_ = 0;
-  uint64_t bit_clk_rate_ = 0;
 
  private:
   bool synchronous_commit_ = false;
@@ -196,6 +192,7 @@ class HWDeviceDRM : public HWInterface {
   std::string interface_str_ = "DSI";
   std::vector<sde_drm::DRMSolidfillStage> solid_fills_ {};
   bool resolution_switch_enabled_ = false;
+  uint32_t vrefresh_ = 0;
   bool autorefresh_ = false;
   bool pending_doze_ = false;
   DRMPowerMode last_power_mode_ = DRMPowerMode::OFF;
