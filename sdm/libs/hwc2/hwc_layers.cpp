@@ -265,7 +265,6 @@ HWC2::Error HWCLayer::SetLayerBuffer(buffer_handle_t buffer, int32_t acquire_fen
   layer_buffer->size = handle->size;
   buffer_flipped_ = reinterpret_cast<uint64_t>(handle) != layer_buffer->buffer_id;
   layer_buffer->buffer_id = reinterpret_cast<uint64_t>(handle);
-  layer_buffer->handle_id = handle->id;
 
   return HWC2::Error::None;
 }
