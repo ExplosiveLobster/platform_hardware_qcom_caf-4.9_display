@@ -19,7 +19,6 @@ cc_defaults {
 cc_library_headers {
     name: "display_headers",
     vendor: true,
-    defaults: ["gralloc_selector"],
     export_include_dirs: [
         "include",
         "libcopybit",
@@ -28,6 +27,7 @@ cc_library_headers {
         "libqservice",
         "gpu_tonemapper",
         "sdm/include",
+        "gralloc",
         "libdebug",
     ],
     header_libs: ["libhardware_headers", "display_intf_headers"],

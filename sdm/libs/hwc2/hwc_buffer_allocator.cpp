@@ -182,16 +182,7 @@ void HWCBufferAllocator::GetAlignedWidthAndHeight(int width, int height, int for
   }
   uint32_t aligned_w = UINT(width);
   uint32_t aligned_h = UINT(height);
-#ifdef USE_GRALLOC1
-  gralloc1_producer_usage_t producer_usage = GRALLOC1_PRODUCER_USAGE_NONE;
-  gralloc1_consumer_usage_t consumer_usage = GRALLOC1_CONSUMER_USAGE_NONE;
-  // TODO(user): Currently both flags are treated similarly in gralloc
-  producer_usage = gralloc1_producer_usage_t(usage);
-  consumer_usage = gralloc1_consumer_usage_t(usage);
-  gralloc::BufferInfo info(width, height, format, producer_usage, consumer_usage);
-#else
   gralloc::BufferInfo info(width, height, format, usage);
-#endif
   gralloc::GetAlignedWidthAndHeight(info, &aligned_w, &aligned_h);
   *aligned_width = INT(aligned_w);
   *aligned_height = INT(aligned_h);
@@ -219,16 +210,7 @@ uint32_t HWCBufferAllocator::GetBufferSize(BufferInfo *buffer_info) {
   }
 
   uint32_t aligned_width = 0, aligned_height = 0, buffer_size = 0;
-#ifdef USE_GRALLOC1
-  gralloc1_producer_usage_t producer_usage = GRALLOC1_PRODUCER_USAGE_NONE;
-  gralloc1_consumer_usage_t consumer_usage = GRALLOC1_CONSUMER_USAGE_NONE;
-  // TODO(user): Currently both flags are treated similarly in gralloc
-  producer_usage = gralloc1_producer_usage_t(alloc_flags);
-  consumer_usage = gralloc1_consumer_usage_t(alloc_flags);
-  gralloc::BufferInfo info(width, height, format, producer_usage, consumer_usage);
-#else
   gralloc::BufferInfo info(width, height, format, alloc_flags);
-#endif
   GetBufferSizeAndDimensions(info, &buffer_size, &aligned_width, &aligned_height);
   return buffer_size;
 }
@@ -379,16 +361,7 @@ DisplayError HWCBufferAllocator::GetAllocatedBufferInfo(
   }
 
   uint32_t aligned_width = 0, aligned_height = 0, buffer_size = 0;
-#ifdef USE_GRALLOC1
-  gralloc1_producer_usage_t producer_usage = GRALLOC1_PRODUCER_USAGE_NONE;
-  gralloc1_consumer_usage_t consumer_usage = GRALLOC1_CONSUMER_USAGE_NONE;
-  // TODO(user): Currently both flags are treated similarly in gralloc
-  producer_usage = gralloc1_producer_usage_t(alloc_flags);
-  consumer_usage = gralloc1_consumer_usage_t(alloc_flags);
-  gralloc::BufferInfo info(width, height, format, producer_usage, consumer_usage);
-#else
   gralloc::BufferInfo info(width, height, format, alloc_flags);
-#endif
   GetBufferSizeAndDimensions(info, &buffer_size, &aligned_width, &aligned_height);
   allocated_buffer_info->stride = UINT32(aligned_width);
   allocated_buffer_info->aligned_width = UINT32(aligned_width);
