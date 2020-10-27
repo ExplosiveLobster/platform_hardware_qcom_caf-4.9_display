@@ -111,5 +111,6 @@
 #define DISABLE_IDLE_TIME_HDR                DISPLAY_PROP("disable_idle_time_hdr")
 
 #define SKIP_EXTENSION_INTF                  DISPLAY_PROP("skip_extension_intf")
+#define SKIP_COLOR_INTF                      DISPLAY_PROP("skip_color_intf")
 
 #endif  // __DISPLAY_PROPERTIES_H__
