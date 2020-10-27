@@ -78,9 +78,15 @@ DisplayError PPFeaturesConfig::RetrieveNextFeature(PPFeatureInfo **feature) {
 
 DisplayError ColorManagerProxy::Init(const HWResourceInfo &hw_res_info) {
   DisplayError error = kErrorNone;
+  bool skip_color_intf = false;
+  int value = 0;
+
+  if (Debug::GetProperty(SKIP_COLOR_INTF, &value) == kErrorNone) {
+    skip_color_intf = (value == 1);
+  }
 
   // Load color service library and retrieve its entry points.
-  if (color_lib_.Open(COLORMGR_LIBRARY_NAME)) {
+  if (!skip_color_intf && color_lib_.Open(COLORMGR_LIBRARY_NAME)) {
     if (!color_lib_.Sym(CREATE_COLOR_INTERFACE_NAME, reinterpret_cast<void **>(&create_intf_)) ||
         !color_lib_.Sym(DESTROY_COLOR_INTERFACE_NAME, reinterpret_cast<void **>(&destroy_intf_))) {
       DLOGW("Fail to retrieve = %s from %s", CREATE_COLOR_INTERFACE_NAME, COLORMGR_LIBRARY_NAME);
